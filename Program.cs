@@ -233,7 +233,7 @@ Runs parallel followed by sequential mode";
             }
             var program = new UsageCalculator(mode, path);
             var results = program.Calculate();
-            Console.WriteLine("Directory '" + path + "':");
+            Console.WriteLine("Directory '" + path + "':\n");
             foreach (TaggedDuResult result in results) {
                 PrintResults(result);
                 Console.WriteLine();
