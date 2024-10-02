@@ -1,5 +1,4 @@
-﻿﻿
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 
 public abstract record Mode;
 public record SingleThreaded() : Mode;
@@ -90,7 +89,7 @@ public class UsageCalculator {
                         imageBytes += fileSize;
                     }
                     bytes += fileSize;
-                } catch (Exception e) {
+                } catch (Exception) {
                     // skip file if we can't get info about it
                 }
             } else if (Directory.Exists(filepath)) {
@@ -99,7 +98,7 @@ public class UsageCalculator {
                         fileQueue.Enqueue(path);
                     }
                     folders ++;
-                } catch (Exception e) {
+                } catch (Exception) {
                     // skip silently if we can't open directory
                 }
             }
@@ -128,7 +127,7 @@ public class UsageCalculator {
                 return new DuResult(0.0,
                     new FileCountResult(0, 1, fileInfo.Length),
                     new ImageCountResult(IsImageFile(path) ? 1 : 0, IsImageFile(path) ? fileInfo.Length : 0));
-            } catch (Exception e) {
+            } catch (Exception) {
                 return EmptyResult();
             }
         } else if (Directory.Exists(path)) {
@@ -150,7 +149,7 @@ public class UsageCalculator {
                     }
                     return result with { fileCountResult = result.fileCountResult with { folders = result.fileCountResult.folders + 1 } };
                 }
-            } catch (Exception e) {
+            } catch (Exception) {
                 return EmptyResult();
             }
         } else {
@@ -238,13 +237,7 @@ Runs parallel followed by sequential mode";
                 PrintResults(result);
                 Console.WriteLine();
             }
-        } catch (Exception _e) {
-            // Console.WriteLine(_e);
-            // Console.WriteLine("Arguments provided: ");
-            // foreach (string arg in args) {
-            //     Console.Write(arg + ", ");
-            // }
-            // Console.WriteLine();
+        } catch (Exception) {
             Console.WriteLine(USAGE_MESSAGE);
         }
     }
